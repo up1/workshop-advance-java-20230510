@@ -30,6 +30,7 @@ public class RegisterBusinessTest {
         Exception e =  assertThrows(ArgumentNullException.class, () -> {
             registerBusiness.register(null, new Speaker());
         });
+        // Assert
         assertEquals("First name is required.", e.getMessage());
     }
 }

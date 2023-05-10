@@ -39,10 +39,32 @@ public class TennisGame1 implements TennisGame {
     private int mScore2 = 0;
     private final String player1Name;
     private final String player2Name;
+    private TennisRule[] rules;
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
+
+        initRules();
+    }
+
+    private void initRules() {
+        rules = new TennisRule[]{
+                new WinnerRule(player1Name, player2Name),
+                new AdvantageRule(player1Name, player2Name),
+                new DeuceRule("", ""),
+                new AllRule("", ""),
+                new DefaultRule("", "")
+        };
+    }
+
+    public String getScore() {
+        for (TennisRule rule : rules) {
+            if (rule.check(mScore1, mScore2)) {
+                return rule.getResult(mScore1, mScore2);
+            }
+        }
+        throw new RuntimeException("Invalid rule !!");
     }
 
     public void wonPoint(String playerName) {
@@ -51,38 +73,5 @@ public class TennisGame1 implements TennisGame {
         } else if (Objects.equals(playerName, this.player2Name)) {
             mScore2++;
         }
-    }
-
-    public String getScore() {
-        String[] scoreText = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-
-        TennisRule[] rules = new TennisRule[]{
-                new WinnerRule(player1Name, player2Name),
-                new AdvantageRule(player1Name, player2Name)
-        };
-
-        for (TennisRule rule : rules) {
-            if (rule.check(mScore1, mScore2)) {
-                return rule.getResult(mScore1, mScore2);
-            }
-        }
-
-        if (isDeuce()) {
-            return "Deuce"; // Early return
-        }
-
-        if (เสมอในเกมส์ปกติไหม()) {
-            return scoreText[mScore1] + "-All";
-        }
-
-        return scoreText[mScore1] + "-" + scoreText[mScore2];
-    }
-
-    private boolean เสมอในเกมส์ปกติไหม() {
-        return mScore1 == mScore2 && mScore1 <= 2;
-    }
-
-    private boolean isDeuce() {
-        return mScore1 == mScore2 && mScore1 > 2;
     }
 }

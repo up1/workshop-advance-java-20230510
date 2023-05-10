@@ -83,6 +83,23 @@ public class RegisterBusinessTest {
     }
 
     @Test
+    @DisplayName("Register with @xxx.com")
+    public void case06_exception() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        Exception e =  assertThrows(SpeakerDoesntMeetRequirementsException.class, () -> {
+            Speaker speaker = new Speaker();
+            speaker.setFirstName("Somkiat");
+            speaker.setLastName("Pui");
+            speaker.setEmail("xxxx@xxx.com");
+            registerBusiness.register(null, speaker);
+        });
+        // Assert
+        assertEquals("Speaker doesn't meet our standard rules.", e.getMessage());
+    }
+
+    @Test
     @DisplayName("Register with valid domain")
     public void case05_exception() {
         // Arrange

@@ -56,18 +56,15 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         String[] scoreText = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
 
-        // Win
-        if (isWin()) {
-            int minusResult = mScore1 - mScore2;
-            if (minusResult >= 2) return "Win for " + player1Name;
-            return "Win for "+ player2Name;
-        }
+        TennisRule[] rules = new TennisRule[]{
+                new WinnerRule(player1Name, player2Name),
+                new AdvantageRule(player1Name, player2Name)
+        };
 
-        // Advantage
-        if (isAdvantage()) {
-            int minusResult = mScore1 - mScore2;
-            if (minusResult == 1) return "Advantage " + player1Name;
-            return "Advantage " + player2Name;
+        for (TennisRule rule : rules) {
+            if (rule.check(mScore1, mScore2)) {
+                return rule.getResult(mScore1, mScore2);
+            }
         }
 
         if (isDeuce()) {
@@ -79,14 +76,6 @@ public class TennisGame1 implements TennisGame {
         }
 
         return scoreText[mScore1] + "-" + scoreText[mScore2];
-    }
-
-    private boolean isAdvantage() {
-        return (mScore1 >= 4 || mScore2 >= 4) && Math.abs(mScore1 - mScore2) == 1;
-    }
-
-    private boolean isWin() {
-        return (mScore1 >= 4 || mScore2 >= 4) && Math.abs(mScore1 - mScore2) >= 2;
     }
 
     private boolean เสมอในเกมส์ปกติไหม() {

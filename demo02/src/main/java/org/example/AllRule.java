@@ -6,6 +6,10 @@ public class AllRule implements TennisRule {
 
     }
 
+    public AllRule() {
+
+    }
+
     @Override
     public boolean check(int mScore1, int mScore2) {
         return mScore1 == mScore2 && mScore1 <= 2;

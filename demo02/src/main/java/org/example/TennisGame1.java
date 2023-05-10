@@ -52,9 +52,9 @@ public class TennisGame1 implements TennisGame {
         rules = new TennisRule[]{
                 new WinnerRule(player1Name, player2Name),
                 new AdvantageRule(player1Name, player2Name),
-                new DeuceRule("", ""),
-                new AllRule("", ""),
-                new DefaultRule("", "")
+                new DeuceRule(),
+                new AllRule(),
+                new DefaultRule()
         };
     }
 

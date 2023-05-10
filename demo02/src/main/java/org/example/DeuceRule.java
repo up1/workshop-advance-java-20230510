@@ -5,6 +5,10 @@ public class DeuceRule implements TennisRule {
 
     }
 
+    public DeuceRule() {
+
+    }
+
     @Override
     public boolean check(int mScore1, int mScore2) {
         return mScore1 == mScore2 && mScore1 > 2;

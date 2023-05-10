@@ -6,6 +6,10 @@ public class DefaultRule implements TennisRule {
 
     }
 
+    public DefaultRule() {
+
+    }
+
     @Override
     public boolean check(int mScore1, int mScore2) {
         return true;

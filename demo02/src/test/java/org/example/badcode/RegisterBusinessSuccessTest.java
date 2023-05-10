@@ -6,10 +6,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StubSpeakerRepository implements SpeakerRepository {
+    private Integer id;
 
+    public void initData(int expectedId) {
+        this.id = expectedId;
+    }
     @Override
     public Integer saveSpeaker(Speaker speaker) {
-        return 1000;
+        return this.id;
     }
 }
 
@@ -19,7 +23,8 @@ public class RegisterBusinessSuccessTest {
     @DisplayName("Register success with id = 5")
     public void register_success(){
         // Arrange
-        SpeakerRepository stub = new StubSpeakerRepository();
+        StubSpeakerRepository stub = new StubSpeakerRepository();
+        stub.initData(11);
 
         Speaker speaker = new Speaker();
         speaker.setFirstName("Somkiat");
@@ -34,4 +39,29 @@ public class RegisterBusinessSuccessTest {
 
     }
 
+    @Test
+    @DisplayName("Register failure !!")
+    public void register_failure(){
+        // Arrange
+        SpeakerRepository stub = new StubSpeakerExceptionRepository();
+
+        Speaker speaker = new Speaker();
+        speaker.setFirstName("Somkiat");
+        speaker.setLastName("Pui");
+        speaker.setEmail("xxxx@gmail.com");
+
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        assertThrows(SaveSpeakerException.class, ()-> {
+            registerBusiness.register(stub, speaker);
+        });
+    }
+
+}
+
+class StubSpeakerExceptionRepository implements SpeakerRepository {
+    @Override
+    public Integer saveSpeaker(Speaker speaker) {
+        throw new RuntimeException("Can not save to database");
+    }
 }

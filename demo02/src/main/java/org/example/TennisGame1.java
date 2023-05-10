@@ -54,15 +54,15 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
+        String[] scoreText = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
         StringBuilder score = new StringBuilder();
         int tempScore;
 
         if (isDeuce()) {
-            return "Deuce";
+            return "Deuce"; // Early return
         }
 
         if (เสมอในเกมส์ปกติไหม()) {
-            String[] scoreText = new String[]{"Love", "Fifteen", "Thirty"};
             return scoreText[mScore1] + "-All";
         }
 
@@ -72,22 +72,10 @@ public class TennisGame1 implements TennisGame {
             else if (minusResult == -1) score = new StringBuilder("Advantage player2");
             else if (minusResult >= 2) score = new StringBuilder("Win for player1");
             else score = new StringBuilder("Win for player2");
-        } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = mScore1;
-                else {
-                    score.append("-");
-                    tempScore = mScore2;
-                }
-                switch (tempScore) {
-                    case 0 -> score.append("Love");
-                    case 1 -> score.append("Fifteen");
-                    case 2 -> score.append("Thirty");
-                    case 3 -> score.append("Forty");
-                }
-            }
+            return score.toString();
         }
-        return score.toString();
+
+        return scoreText[mScore1] + "-" + scoreText[mScore2];
     }
 
     private boolean เสมอในเกมส์ปกติไหม() {

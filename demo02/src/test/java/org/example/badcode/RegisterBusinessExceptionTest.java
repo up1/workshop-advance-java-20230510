@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RegisterBusinessTest {
+public class RegisterBusinessExceptionTest {
 
     @Test
     @DisplayName("Register without firstname")

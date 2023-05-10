@@ -27,7 +27,6 @@ public class RegisterBusinessTest {
         // Arrange
         RegisterBusiness registerBusiness = new RegisterBusiness();
         // Act
-
         Exception e =  assertThrows(ArgumentNullException.class, () -> {
             registerBusiness.register(null, new Speaker());
         });

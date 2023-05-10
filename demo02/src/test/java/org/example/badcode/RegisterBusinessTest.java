@@ -33,4 +33,69 @@ public class RegisterBusinessTest {
         // Assert
         assertEquals("First name is required.", e.getMessage());
     }
+
+    @Test
+    @DisplayName("Register without lastname")
+    public void case02_exception() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        Exception e =  assertThrows(ArgumentNullException.class, () -> {
+            Speaker speaker = new Speaker();
+            speaker.setFirstName("Somkiat");
+            registerBusiness.register(null, speaker);
+        });
+        // Assert
+        assertEquals("Last name is required.", e.getMessage());
+    }
+
+    @Test
+    @DisplayName("Register without email")
+    public void case03_exception() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        Exception e =  assertThrows(ArgumentNullException.class, () -> {
+            Speaker speaker = new Speaker();
+            speaker.setFirstName("Somkiat");
+            speaker.setLastName("Pui");
+            registerBusiness.register(null, speaker);
+        });
+        // Assert
+        assertEquals("Email is required.", e.getMessage());
+    }
+
+    @Test
+    @DisplayName("Register with invalid domain")
+    public void case04_exception() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        Exception e =  assertThrows(DomainEmailInvalidException.class, () -> {
+            Speaker speaker = new Speaker();
+            speaker.setFirstName("Somkiat");
+            speaker.setLastName("Pui");
+            speaker.setEmail("xxxxxx");
+            registerBusiness.register(null, speaker);
+        });
+        // Assert
+        assertNotNull(e);
+    }
+
+    @Test
+    @DisplayName("Register with valid domain")
+    public void case05_exception() {
+        // Arrange
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        // Act
+        Exception e =  assertThrows(SaveSpeakerException.class, () -> {
+            Speaker speaker = new Speaker();
+            speaker.setFirstName("Somkiat");
+            speaker.setLastName("Pui");
+            speaker.setEmail("xxxx@gmail.com");
+            registerBusiness.register(null, speaker);
+        });
+        // Assert
+        assertEquals("Can't save a speaker.", e.getMessage());
+    }
 }

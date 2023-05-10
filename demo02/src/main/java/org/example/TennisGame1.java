@@ -55,8 +55,20 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String[] scoreText = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-        StringBuilder score = new StringBuilder();
-        int tempScore;
+
+        // Win
+        if ((mScore1 >= 4 || mScore2 >= 4 ) && Math.abs(mScore1 - mScore2) >= 2 ) {
+            int minusResult = mScore1 - mScore2;
+            if (minusResult >= 2) return "Win for " + player1Name;
+            return "Win for "+ player2Name;
+        }
+
+        // Advantage
+        if ((mScore1 >= 4 || mScore2 >= 4) && Math.abs(mScore1 - mScore2) == 1) {
+            int minusResult = mScore1 - mScore2;
+            if (minusResult == 1) return "Advantage " + player1Name;
+            return "Advantage " + player2Name;
+        }
 
         if (isDeuce()) {
             return "Deuce"; // Early return
@@ -64,15 +76,6 @@ public class TennisGame1 implements TennisGame {
 
         if (เสมอในเกมส์ปกติไหม()) {
             return scoreText[mScore1] + "-All";
-        }
-
-        if (mScore1 >= 4 || mScore2 >= 4) {
-            int minusResult = mScore1 - mScore2;
-            if (minusResult == 1) score = new StringBuilder("Advantage player1");
-            else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-            else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-            else score = new StringBuilder("Win for player2");
-            return score.toString();
         }
 
         return scoreText[mScore1] + "-" + scoreText[mScore2];

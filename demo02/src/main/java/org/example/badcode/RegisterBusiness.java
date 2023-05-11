@@ -36,7 +36,7 @@ public class RegisterBusiness {
         }
     }
 
-    int getFee(int experienceYear) {
+    public int getFee(int experienceYear) {
         int fee = 0;
         if (experienceYear <= 1) {
             fee = 500;

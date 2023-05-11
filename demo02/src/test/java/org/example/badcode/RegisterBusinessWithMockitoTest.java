@@ -30,8 +30,15 @@ public class RegisterBusinessWithMockitoTest {
     @DisplayName("Stub Register success with id = 5")
     public void register_success(){
         // Arrange
-        RegisterBusiness registerBusiness = new RegisterBusiness();
+//        Constructor Injection => Default/Required dependency
+//        RegisterBusiness registerBusiness = new RegisterBusiness(speakerRepository);
+//        Field/Setter Injection => Optional
+//        registerBusiness.setRepository(speakerRepository);
+//        Method Injection
+//        int actualResult = registerBusiness.register(speakerRepository, speaker);
         // Act
+        // Method Injection
+        RegisterBusiness registerBusiness = new RegisterBusiness();
         int actualResult = registerBusiness.register(speakerRepository, speaker);
         // Assert
         assertEquals(1000, actualResult);

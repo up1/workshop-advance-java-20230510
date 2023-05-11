@@ -21,7 +21,7 @@ public class UserGatewayIntegrationTest {
         UserResponse result = userGateway.getUnitById(1);
         // Assert
         assertEquals(1, result.getId());
-        assertEquals("Leanne Graham", result.getName());
+        assertEquals("Name from fake api", result.getName());
     }
 
 }

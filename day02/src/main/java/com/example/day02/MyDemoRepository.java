@@ -3,12 +3,14 @@ package com.example.day02;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MyDemoRepository extends JpaRepository<MyData, Integer> {
 }
 
 @Entity
+@Table(name = "my_data")
 class MyData {
     @Id @GeneratedValue
     private Integer id;

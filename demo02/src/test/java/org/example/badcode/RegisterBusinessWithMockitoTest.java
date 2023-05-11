@@ -1,5 +1,6 @@
 package org.example.badcode;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,15 +15,21 @@ public class RegisterBusinessWithMockitoTest {
     @Mock
     private SpeakerRepository speakerRepository;
 
-    @Test
-    @DisplayName("Register success with id = 5")
-    public void register_success(){
-        // Arrange
-        Speaker speaker = new Speaker();
+    Speaker speaker;
+    @BeforeEach
+    public void xxxx() {
+        System.out.println("Called initMock");
+        speaker = new Speaker();
         speaker.setFirstName("Somkiat");
         speaker.setLastName("Pui");
         speaker.setEmail("xxxx@gmail.com");
         when(speakerRepository.saveSpeaker(speaker)).thenReturn(1000);
+    }
+
+    @Test
+    @DisplayName("Stub Register success with id = 5")
+    public void register_success(){
+        // Arrange
         RegisterBusiness registerBusiness = new RegisterBusiness();
         // Act
         int actualResult = registerBusiness.register(speakerRepository, speaker);
@@ -31,14 +38,9 @@ public class RegisterBusinessWithMockitoTest {
     }
 
     @Test
-    @DisplayName("Register success with id = 5")
+    @DisplayName("Spy Register success with id = 5")
     public void register_success_with_spy(){
         // Arrange
-        Speaker speaker = new Speaker();
-        speaker.setFirstName("Somkiat");
-        speaker.setLastName("Pui");
-        speaker.setEmail("xxxx@gmail.com");
-        when(speakerRepository.saveSpeaker(speaker)).thenReturn(0);
         RegisterBusiness registerBusiness = new RegisterBusiness();
         // Act
         registerBusiness.register(speakerRepository, speaker);

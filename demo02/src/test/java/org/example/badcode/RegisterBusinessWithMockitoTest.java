@@ -44,7 +44,7 @@ public class RegisterBusinessWithMockitoTest {
         registerBusiness.register(speakerRepository, speaker);
         // Assert
         verify(speakerRepository).saveSpeaker(speaker);
-        verify(speakerRepository, times(2)).saveSpeaker(speaker);
+        verify(speakerRepository, times(1)).saveSpeaker(speaker);
     }
 
 }

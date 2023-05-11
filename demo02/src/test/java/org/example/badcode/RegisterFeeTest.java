@@ -22,4 +22,18 @@ public class RegisterFeeTest {
         int actualFee = registerBusiness.getFee(experienceYear);
         assertEquals(expectedFee, actualFee);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1, 500",
+            "3, 250",
+            "5, 100",
+            "9, 50",
+            "15, 0"
+    })
+    public void getFee2(int experienceYear, int expectedFee) {
+        RegisterBusiness registerBusiness = new RegisterBusiness();
+        int actualFee = registerBusiness.getFee(experienceYear);
+        assertEquals(expectedFee, actualFee);
+    }
 }
